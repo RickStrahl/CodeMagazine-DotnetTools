@@ -3,6 +3,29 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.1.2</Version>
+    <Authors>Rick Strahl</Authors>
+    <Company>West Wind Technolologies</Company>
+    <Description>Magic Wind Ball is a fictional wind forecast predictor using the classic Magic Eight Ball to provide random wind predictions.
+    
+    This is an example Dotnet Tool for a CODE Magazine article and blog post.
+    </Description>
+    <Copyright>© Rick Strahl - West Wind Technologies, 2019-2020</Copyright>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
+  <!-- Dotnet Tool Specific settings -->
+  <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <PackageId>dotnet-magicwindball</PackageId>
+    <ToolCommandName>magicwindball</ToolCommandName>
+
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>

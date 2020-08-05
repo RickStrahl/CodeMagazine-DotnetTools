@@ -4,18 +4,18 @@
 
 Starting with .NET Core 2.1 Microsoft introduced the **Dotnet Tools** platform as part of the .NET Core SDK and since then these tools have become a vital although underutilized part of the .NET Eco system.
 
-Dotnet Tools are a simple way to create, publish and consume what are essentially .NET Core ~~Console~~ applications that can be published and shared using the existing NuGet infrastructure for packaging and distribution. This means it's really quick and easy to build tools that you can share either publicly or privately. 
+Dotnet Tools are a simple way to create, publish and consume what are essentially .NET Core applications that can be published and shared using the existing NuGet infrastructure for packaging and distribution. This means it's really quick and easy to build tools that you can share either publicly or privately. 
 
 ## What is a Dotnet Tool?
-When you break down a Dotnet Tool to its bare bones, it all resolves to this simple statement:
+When you break down a Dotnet Tool it boils down to its simplest terms you end up with this simple statement:
 
-> **“A Dotnet Tool is a glorified.NET Core ~~Console~~ Application that can be easily shared and installed via NuGet.”**
+> **“A Dotnet Tool is a glorified.NET Core Application that can be quickly and easily shared and installed via NuGet.”**
 >
 > *Me, 2020*
 
-The idea of a Dotnet Tool is to make it easy to build, publish and consume executable tools in the same way you've been able create NuGet packages for .NET Core components in the past.
+The idea behind a Dotnet Tool is to make it easy to build, publish and consume executable tools in the same way you've been able create NuGet packages for .NET and .NET Core components.
 
-And while the original idea was to build tools to aid as part of the build and development process, this platform really offers much more scope because essentially **you can publish and share any .NET Core executable application**. This includes servers that run full ASP.NET Core applications or services as well as .NET Core desktop applications.
+And while the original idea was to build tools to aid as part of the build and development process, this platform really offers a much wider scope because **you can publish and share any .NET Core executable application**. This includes servers that run full ASP.NET Core applications or services, and even .NET Core desktop applications.
 
 ### Why use Dotnet Tools?
 The big selling points of Dotnet Tools are:
@@ -28,13 +28,11 @@ The big selling points of Dotnet Tools are:
 * You can **install** a tool via `Dotnet Tool install`
 * You can **update** and **uninstall** Dotnet Tools quickly
 
-On the flip side there is the pre-requisite:
+On the flip side there is a big pre-requisite to use a Dotnet Tool:
 
 * The **.NET Core SDK is required** to install a Dotnet Tool
 
-The SDK dependence is both a blessing and a curse: Because it's guaranteed that the .NET Core Runtime is installed, binaries can be very small and only consist of application specific files. 
-
-But the .NET SDK is something that has to be installed and the SDK install is neither small, nor something that a typical, non development user will have installed. So either it has to be explicitly installed or you are explicitly targeting (.NET) developers with your tool.
+The SDK dependence is both a blessing and a curse: Because it's guaranteed that the .NET Core Runtime is installed, binaries of your Dotnet Tool can be very small and only consist of application specific files. But the .NET SDK has to exist on the target machine and the SDK install is neither small, nor something that a typical, non development user will already have installed. 
 
 While the idea behind Dotnet Tools isn't anything new, this tooling does provide a number of benefits to developers and the entire .NET Core eco system.
 
@@ -43,189 +41,289 @@ While the idea behind Dotnet Tools isn't anything new, this tooling does provide
 * Uses standard .NET Core Projects
 * Uses existing NuGet Infrastructure
 * Nothing new to learn - works with existing tech
+* Configured via standard `.csproj` settings
 
 **Sharing**
 
 * Can be easily shared
 * Can reach a large number of users
-* Quickly published without extensive validation
+* Quickly published and available 
+* No explicit package validation
 
 **Community**
 
 * Ease of use and shareability promotes creation of tools
 * Shared content helps build community
 
-### Security: Caveat Emptor
-Since Dotnet Tools are executables, are installed from a remote source and there is no validation process, it's important to understand that there is a potentially substantial security risk to your machine. The code that comes down can execute locally on your system and s**o has access to your local resources when you run a tool**.   
-  
-> Be sure you trust the publisher of the component, and/or verify that the source code is available somewhere to review. 
-
-Also check the repository for comments. I wouldn't advise running tools that don't publish their source code or aren't from a publisher you otherwise highly trust. 
-
-**Be careful and know the risks!**
+### @icon-warning Security Alert
+> Since Dotnet Tools are executables that are installed from a remote source and there is no validation process, it's important to understand that **there is a potentially substantial security risk** to your machine. The code that comes down can execute locally on your system and  has access to your local resources when you run a tool.
+>  
+> Be sure you trust the publisher of the component, and/or verify that the source code is available somewhere to review and check for issues in the project. 
+>
+> **Be careful and know the risks!**
 
 ### There's nothing new under the Sun!
 
 > ***“Did you just describe NPM?”***  
 > Yup: Dotnet Tool is very much like NPM  for .NET Core.
 
-If all this looks familiar from NodeJs and NPM - you're right. The idea is not new by any means, but certainly for .NET to be able to easily publish and share binary executable tools in a cross-platform manner is something new and exciting. 
-
-
-
-
+If all this looks familiar from NodeJs and NPM - you're right. The idea of shared tools is not new by any means and follows various other development platforms and their package managers. But for .NET to easily publish and share binary executable tools in a cross-platform manner is relatively new and exciting and opens up the reach of small and useful tools that otherwise would never be shared. 
 
 ### What can you use Dotnet Tools For?
-Although .NET Tools were initially designed to provide development time tools, compilation helpers, build tools and other things that you might need for the development process, it turns out that Dotnet Tools are basically just .NET Core executables and can do - well anything that a .NET Core executable can do. This means you can use it for all sorts of things that might not be directly developer related.
+Although .NET Tools were initially designed to provide development time tools, compilation helpers, build tools etc., it turns out that Dotnet Tools are just plain .NET Core executables that can do anything that a .NET Core executable can do. This means you can use it for all sorts of things that might not be directly developer related.
 
-Built a small utility? Need to have an easy way for people to install and run it? Or simply share it amongst your team or maybe even with yourself on multiple machines? A Dotnet Tool requires minimum effort and no long-winded, store-like validation, so once you publish your tool will be avaible in a few minutes to consume.
+Did you build a small command line utility? Need to have an easy way for people to install and run it? Or quickly share it amongst your team or maybe even with yourself on multiple machines? A Dotnet Tool requires minimum effort and no long-winded, store-like validation, so once you publish your tool it's available in a few minutes to consume.
 
 Here are a few general use cases addressed by Dotnet Tools:
 
 * **Build and Dev Time Tools**  
-There are many tools that follow the original design goal for creating project helpers that make development tasks easier or facilitate external but related development operations. For example, tools like EF migration commands in `dotnet ef`, `dotnet watch run`, and the user secrets manager are all Dotnet Tools that fit this bill. There are many tools available in this category.
+There are many tools that follow the original design goal for creating project helpers that make development tasks easier or facilitate external but related development operations. For example, tools like EF migration commands in `dotnet ef`, `dotnet watch run`, and the user secrets manager, dotnet watch are all Dotnet Tools that fit this bill. There are many tools available in this category.
 
 * **Generic Command Line Tools**  
-If you need to build some complex commandline helpers that work on scenarios that are maybe somewhat more complex than what you reasonably want to do in Powershell or Bash, a tool can fit that niche nicely. Because these tools can be shared and installed easily and are generally very small they make a good fit for *'beyond scripting'* scenarios.
+If you need to build some complex command line helpers that work on scenarios that are more complex than what you reasonably want to do in PowerShell or Bash, a tool can fit that niche nicely. Because these tools can be shared and installed easily and are generally very small they make a good fit for *'beyond scripting'* scenarios.
 
 * **Local Servers**  
-.NET Core makes it easy to build server applications and it's easy to create self-contained Web Server or Services applications. Whether it's running a Web application locally for testing, or whether you have some internal application that maybe is a hybrid that uses both a Web interface and a desktop application in mixed mode, a Dotnet Tool makes it easy to provide this. It's very powerful to be able to create **small** and easily sharable, self-contained Web and server applications. I'll show a couple of examples of this later.
+.NET Core makes it easy to build server applications and it's easy to create self-contained Web Server or Services applications. Whether it's running a Web application locally for testing, or whether you have some internal application that maybe is a hybrid that uses both a Web interface and a desktop application in mixed mode, a Dotnet Tool makes it easy to provide this. It's very powerful to be able to create **small** and easily shareable, self-contained Web and server applications. I'll show a couple of examples of this later.
 
 * **Desktop Applications**  
 Although Microsoft's official documentation claims that `Dotnet Tool` is meant for Console Applications, it turns out that you **can** also create desktop applications and share them as a tool. You can create .NET Core WinForms and WPF applications and package them as tools too. Keep in mind though that WinForms and WPF applications are platform dependent and have to run on Windows, unlike pure Console applications which can run on any supported .NET Core platform assuming they are not using platform specific features.
 
-#### Finding Dotnet Tools
-Unfortunately, finding all .NET Tools that are available is not so obvious. Puzzlingly the [NuGet Web site](https://nuget.org) doesn't allow any filtering in searches to return just Dotnet Tools.
+### Finding Dotnet Tools
+Unfortunately, finding all .NET Tools that are available is not so obvious. Puzzlingly the [NuGet Web site](https://nuget.org) doesn't allow any filters for searches that filter for just Dotnet Tools.
 
-There are a few other ways that you can check though:
+There are a couple of other places you can check though:
 
 * Nate McMaster has a GitHub repo with a [list of many Dotnet Tools](https://github.com/natemcmaster/dotnet-tools)
+
 * The [ToolGet Site](https://www.toolget.net/tools?q=LiveReloadServer) searches NuGet with a Dotnet Tool filter!
 
 ### Dotnet Tool or Platform Specific Binary?
-As you probably know .NET Core supports creating binaries for every platform that it supports. You can create standalone executables for each platforms using either runtime dependent installation that requires that a specific version of .NET Core pre-exists, or a fully self-contained executable that can contain all the required runtime files in addition to the files that your application needs to run.
+.NET Core supports creating executable binaries for every platform that it supports. But each platform requires a custom executable launcher and runtime dependencies to run, which means each platform distribution is different. 
 
-The advantage of building a .NET Tool over building a full .NET binary (EXE on Windows for example) is that  a Dotnet Tool is **not platform specific**. Like a NuGet component package, the executable is actually just the compiled binary .NET assemblies packaged into a Nuget zip file. This file contains the .NET executable code, that is not tied to any platform - ie. there's no platform specific binary loader as you would have with an EXE file on Windows for example.
+It's possible to create standalone executables for each platform using either a pre-installed .NET Core runtime installation, or a fully self-contained executable that can contain all the required runtime files in addition to the files that your application needs to run. Self-contained applications are great for self-reliance and predictable behavior, but they are terribly large as the runtimes make up a minimum of 70mb of distribution size.
 
-This means you can build a single, relatively small NuGet package as a Dotnet Tool and it will work on each supported .NET Core platform - assuming your code is written to otherwise use platform agnostic features.
+A full self-contained application is useful and sometimes required, especially for non-developer related tools. If you're building an end user tool or application, then a self-contained application is usually a better call. But if you're building developer tools the `Dotnet Tool` experience is often preferable. Dotnet Tools are definitely targeted at developers and not end users.
 
-That's cool: It provides you cross platform functionality without having to build and maintain any platform specific loaders and it keeps the deployment size very lean.
+The advantage of building a .NET Tool is that  a Dotnet Tool is **not platform specific**. Like a NuGet component package, the executable is actually just the compiled .NET assemblies packaged into a NuGet zip file. This file contains the .NET executable code, that is not tied to any platform - ie. there's no platform specific binary loader as you would have with an EXE file on Windows for example. Since Dotnet Tools rely on an SDK installation to run, the runtime is guaranteed to be there. If `dotnet tool` can run, your tool can run.
 
-That said, having a full self-contained application that doesn't require a .NET Core SDK install is also useful and sometimes required, especially for non-developer related tools. So if you're building developer tools the `Dotnet Tool` experience is just fine and probably preferable. But if you're building some sort of end user tool or application, then a self-contained application might be a better call.
+This means you can build a single, relatively small NuGet package as a Dotnet Tool and it will work on all supported .NET Core platforms - assuming your code is written to otherwise use platform agnostic features. That's cool: It provides you cross platform functionality without having to build and maintain any platform specific loaders and it keeps the deployment size very small. 
+
+As an aside, you can also achieve the same cross-platform behavior with a .NET Core Runtime installation and using `dotnet run` but that's considerably less user friendly as you have to deal with paths and installation folders. A Dotnet Tool abstracts all that away so you just have your executable to run.
 
 ## Creating and using Dotnet Tools
-Ok, time to look and see how we can:
+Let's jump in and see how you can:
 
 * Build a Dotnet Tool package for distribution
 * Publish a Dotnet Tool package
 * Consume a Dotnet Tool package
 
-### Creating a Dotnet Tool Package
-A Dotnet Tool is created by creating an executable .NET Core Project. You can create a Console or WPF/WinForms application and as long as the project produces an executable, it can be delivered as a Dotnet Tool.
+### Create a Dotnet Tool Step by Step
+Let's create a very simple project `MagicWindBall` that 'predicts' Wind conditions for the day. It's a play on words of Magic Eightball which is a fake fortune telling device and I'm highjacking the idea to tell me my wind fortunes. 
 
-To mark a project as a Dotnet Tool you use a special `<PackAsTool>` element in the project file:
+Start by creating a .NET Core Console project. I'll use the `dotnet` Command line tooling, but you can also use Visual Studio (or [Rider](https://www.jetbrains.com/rider/) etc.) to create a new **.NET Core Console project**.
 
-```xml
-<PropertyGroup>
-  <PackAsTool>true</PackAsTool>
-  <PackageId>dotnet-htmlpackager</PackageId>
-  <ToolCommandName>htmlpackager</ToolCommandName>
-  
-  <PackageOutputPath>./nupkg</PackageOutputPath>
-  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-</PropertyGroup>
+From the command line, start by creating a new folder with the Project name, and then create a project in that folder:
+
+```ps
+mkdir MagicWindBall
+cd MagicWindBall
+
+dotnet new console
+
+code .
 ```
 
-The key item is the `<PackAsTool>` element which marks the NuGet package as a Dotnet Tool. When it shows up in the NuGet package store it'll show up as a Dotnet Tool:
+This creates a new project `MagicWindBall.csproj` which you can open in Visual Studio or Visual Studio Code. I'll use VS Code here, which makes it easy to open the projects from a folder via `code .`.
 
-![](images/DotnetToolOnNuGet.png)
+![](images/DotnetToolProjectVisualStudioCode.png)  
+<small>**Figure 1** - Opening and running the Console project in Visual Studio Code</small>
 
-### Publishing a Dotnet Tool
-.NET Tools are published as NuGet packages and use the same exact mechanism you might use to publish a NuGet package for a regular .NET Component. 
+This project is silly simple, with an imaginary wind forecast generator that randomly displays a string from a list of pre-defined wind condition strings.
 
-If you're new to publishing I recommend you grab a copy of the the [NuGet Package Explorer](https://github.com/NuGetPackageExplorer/NuGetPackageExplorer) which is a UI application that lets you review a package:
+The code is along these lines: <small>(full code on GitHub at https://github.com/RickStrahl/CodeMagazine-DotnetTools/blob/master/Source/MagicWindBall/Program.cs)</small>
 
-![](images/NugetPackageExplorer.png)
+```cs
+static void Main(string[] args)
+{
+    WriteWrappedHeader("Magic WindBall");
 
-The Explorer lets you see exactly what your package contains, lets you edit the package attributes and includes functionality to let you sign a package and publish it to NuGet.
+    Console.WriteLine();
 
-If you'd rather use some sort of build script to do it you can use `Nuget.exe` with mostly generic script:
+    Write("thinking.", ConsoleColor.Cyan);
+    Wait(500);
+   
+    Write(" consulting the stars.", ConsoleColor.Yellow);
+    Wait(1000);
+    Write(".", ConsoleColor.Yellow);
+   
+    Write(" guessing some more.", ConsoleColor.Cyan);
+    Wait(1000);
+    Write(".", ConsoleColor.Cyan);
+    
+    Console.WriteLine('\n');
 
-```powershell
-$signingCertificateSubject = "West Wind Technologies"
+    var rnd = new Random(DateTime.UtcNow.Millisecond);
+    var val = rnd.Next(6);
+    
+    Console.WriteLine("Wind today be:");
 
-if (test-path ./nupkg) {
-    remove-item ./nupkg -Force -Recurse
-}   
+    switch (val)
+    {
 
+        case 0:
+            WriteLine("No Wind - Skunked again.", ConsoleColor.DarkYellow);
+            break;
+        case 1:
+            WriteLine("Light Wind - Take a nap, pray for wind.", ConsoleColor.DarkCyan);
+            break;
+        case 2:
+            WriteLine("Light Breeze - Sucker wind.", ConsoleColor.DarkGreen);
+            break;
+        case 3:
+            WriteLine("Breezy- Wake up and get ready.", ConsoleColor.Green);
+            break;
+        case 4:
+            WriteLine("Windy- What the hell are you doing at the keyboard?", ConsoleColor.Yellow);
+            break;
+        case 5:
+            WriteLine("Super Nuker- Get out and rig your Hankie.", ConsoleColor.Red);
+            break;
+        default:
+            WriteLine("Roll the Dice - It's coming in waves.");
+            break;
+    }
+
+    Console.WriteLine();
+}
+```
+
+First, let's make sure the code works as a regular Console application. Open a Terminal in the project folder and do:
+
+```ps
+dotnet run
+```
+
+In **Figure 1** I use the built-in Terminal in VS Code Terminal to test the 'application'.
+
+#### Make it a Dotnet Tool
+You now have a plain .NET Core Console application. To turn this into a **Dotnet Tool** add a few specific settings to the project file. At minimum add:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>    
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Dotnet Tool Specific settings -->
+  <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <PackageId>dotnet-magicwindball</PackageId>
+    <ToolCommandName>magicwindball</ToolCommandName>
+    
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>
+```
+
+The dotnet tool specific settings set the project as a .NET tool via `<PackAsTool>`, provide a name and set up the project to build as a NuGet package. With these flags in place you can now build the project and generate the Dotnet Tool NuGet Package into the `./nupkg` folder:
+
+```ps
+dotnet build -c Release
+```
+
+If you use Visual Studio just build in Release mode.
+
+This builds the project **and creates a NuGet Package** in the `./nupkg` folder. You can use the [NuGet Package Explorer](https://github.com/NuGetPackageExplorer/NuGetPackageExplorer) to spy into the package to see what is in the package as shown in **Figure 2**.
+
+![](images/NugetPackageExplorer.png)  
+**Figure 2** - The Dotnet Tool NuGet Package in the NuGet Package Explorer
+
+
+
+#### Testing the Dotnet Tool Locally
+Once you've created the .NET Package you'll probably want to test it first before publishing it to NuGet (if at all). You can do that by installing the dotnet tool locally from a folder. To install a Dotnet Tool you use `dotnet tool install` or `dotnet tool update`.
+
+For public tools that come from the default, cloud based NuGet package store you use:
+
+```ps
+Dotnet Tool install -g dotnet-magicwindball
+```
+
+But... this fails  at this point, because the package hasn't been published to NuGet yet as I've only created a local package. But you can test the package locally by installing the NuGet component from a a folder by specifying the `--add-source ./nupkg` command line option:
+
+ ```ps
+ dotnet tool install -g dotnet-magicwindball --add-source ./nupkg
+ ```
+
+Et voila! You've just installed the Dotnet Tool locally. You can now use command name which is `magicwindball` to launch the application. `magicwindball` is now available on the system path so it works. **Figure 3** shows building and running the tool in a Terminal window.
+
+![](../Conferences/PADNUG2020/images/BuildAndRunLocal.png)  
+**Figure 3** - Build and run your Dotnet Tool locally
+ 
+#### Publishing to NuGet
+.NET Tools are published as NuGet packages and use the same exact mechanism you might use to publish a NuGet package for a regular .NET Component using `Nuget publish` or you can also use the NuGet Package Explorer shown in **Figure 2**. 
+
+Here's a full build, sign and publish PowerShell script:
+
+```ps
 dotnet build -c Release
 
-# find latest .nupkg file
-$filename = gci "./nupkg" | sort LastWriteTime | select -last 1 | select -ExpandProperty "Name"
-Write-host $filename
-
+$filename = gci "./nupkg/*.nupkg" | `
+                sort LastWriteTime | `
+                select -last 1 | `
+                select -ExpandProperty "Name"
 $len = $filename.length
+
 if ($len -gt 0) {
-    Write-Host "signing..."
-    nuget sign  ".\nupkg\$filename"  `
-                -CertificateSubject $signingCertificateSubject `
-                -timestamper "http://timestamp.comodoca.com"
+    nuget sign  ".\nupkg\$filename"   `
+          -CertificateSubject "West Wind Technologies" `
+          -timestamper " http://timestamp.comodoca.com"
+
     nuget push  ".\nupkg\$filename" -source nuget.org
 }
 ```
 
-For the `nuget push` to work you'll need to set the active NuGet publishing Id which you can do by once running:
+Note that NuGet Package signing is optional, but since I already have a publisher certificate I'm using it to sign my package. If you don't have a certificate skip the `nuget sign` command. 
+
+For the `nuget push` to work you'll need to set the active NuGet publishing Id before you publish the package.
 
 ```ps
 nuget setApiKey <your_API_key>   
 ```
 
-Once published, NuGet packages become live relatively quickly - typically it just takes a few minutes before you can access a new package. However the feed listings tend to take a bit longer, so you may have to explicitly specify a version number using the `--version` flag.
+Once published the package is  listed on NuGet after a few minutes. **Figure 4** shows what the package looks like on the NuGet Package Store site.
 
-### Installing a Dotnet Tool
-To install Dotnet Tool you use a built-in .NET SDK command: `Dotnet Tool`. To install a tool use its package Id:
+![](images/DotnetToolOnNuGet.png)
 
-```ps
-Dotnet Tool install -g LiveReloadServer
-```
+**Figure 4**: The published Dotnet Tool in the NuGet Package Store
 
-The `-g` makes the component **global**, which means it will be available on the OS path and can be executed without specifying a location. Most tools are globally installed, but you can also create local tools that become specific to your project folder.
+Once published, the package becomes accessible within a few minutes. Feed listings can take a bit longer, so you may have to explicitly specify a version on the command line using the `--version` flag.
 
-You can also use the `update` command which works both to update a package to the latest version (or a specific version) as well as installing the tool if it's not already installed. Because it handles both **I usually use `update`** instead of `install`:
+You can now install and run the component from the NuGet Package Store. **Figure 5** shows the install and run sequence.
 
-```ps
-Dotnet Tool update -g LiveReloadServer
-```
-
-### Running the Dotnet Tool
-To then run the installed Dotnet Tool you use the `toolname` that is defined for that server:
-
-```ps
-LiveReloadServer --webroot /webconnectionprojects/vue/web `
-                 --UseRazor --UseMarkdown
-```
-
-Here's what this looks like:
-
-![](images/LiveReloadServerCommandLineInstallAndRun.png)
-
-> **@icon-info-circle Note:**  
-If you're running on a non-Windows environment the tool name you use from the command line **is case sensitive** and has to match what you see for the *Command Name* when you do `Dotnet Tool list`.
+![](images/InstallAndRunFromNuget.png)
 
 ### How a Tool gets Executed
-Dotnet Tools are deployed as .NET NuGet packages that don't include an OS executable binary. Rather, when a tool is installed,the tooling creates a small proxy loader executable that lives in a folder mapped in the OS path:
+Dotnet Tools are deployed as .NET NuGet packages that **don't include an OS specific executable file**. Rather, when a tool is installed, a proxy launcher executable is created that acts as a proxy loader for the .NET Core runtime, which then bootstraps the dotnet tool application. The proxy is created in a system mapped `.dotnet` folder and is then globally available by the command name. **Figure 6** shows the proxy and the actual install folder that holds only the .NET assemblies that can execute on any platform.
 
-![](images/DotnetToolsProxyFolder.png)
+![](images/DotnetToolsProxyFolder.png)  
+**Figure 6** - An installed Dotnet Tool uses a proxy loader to launch the Dotnet Tool.
 
-The `.store` path below this folder holds the actual unpacked NuGet package content for each tool. When you run the proxy via the dotnet net tool command, the proxy starts and loads up the actual .NET startup assembly and the `static void Main()` entry point. The `.exe` you see in the screen shot **is only a loader** not the actual binary - if you try to hook up an IL decompiler you'll find that the exe is a native binary, not a .NET assembly.
+The `.dotnet/.store` path holds the actual unpacked NuGet package content for each tool installed. When you run the proxy stub (`magicwindball.exe` in this case), the launcher starts, loads the .NET Core runtime and then calls the `static void Main()` entry point in the entry assembly of the package. The `.exe` you see on the left in **Figure 6** is only a loader. If hook up an IL decompiler to the EXE you'll find that the exe is a native binary, not a .NET assembly.
 
 ![](images/NotADotnetAssembly.png)
-
-Because this wrapper is on the path, it can be executed and each custom loader knows where it can find the appropriate component. This approach is common with package managers - you'll find a similar mechanism for the [Chocolatey Package Manager](https://chocolatey.org) for Windows for example.
 
 ### Running on another Platform: Linux with WSL
 Dotnet Tools are platform agnostic. Assuming your application doesn't use any platform specific features in its internal code you can run the same Dotnet Tool that works on Windows on a Mac or on Linux.
 
+So let's run this Dotnet Tool on Linux using WSL using the same steps as before. Use `dotnet tool install` and then execute the command. **Figure 7** shows what that looks like inside of the Windows Subsystem for Linux (WSL).
+
+![](images/RunningUnderWsl.png)  
+**Figure 7** - Dotnet Tools are cross platform, here running under WSL
 
 
 ### Listing and Managing Installed Tools
@@ -233,21 +331,21 @@ You can check what tools you have installed by using the `Dotnet Tool list -g` c
 
 ![](images/DotnetToolList.png)
 
-This lists both the **Package Id** which is the Install name used with NuGet and the **Command** name which is used to invoke the package. Note that these can be different. Again keep in mind that the command name is **case sensitive** on case sensitive operating systems.
+This lists both the **Package Id** which is the Install name used with NuGet and the **Command** name which is used to invoke the package. These can be different as they are for `dotnet-magicwindball` and the `magicwindball` command, but they don't have to be. The `dotnet-` is an original convention used by various .NET internal tools to make it obvious they are .NET tools, but I find in many cases it's more consistent to use a single value for the package and command.
+
+> Keep in mind that the command name is **case sensitive** on case sensitive operating systems.
 
 You can keep tools up to date using the `update` command:
 
 ```ps
-Dotnet Tool update -g LiveReloadServer
+Dotnet Tool update -g dotnet-magicwindball
 ```
 
 and you can easily uninstall tools with `uninstall`:
 
 ```ps
-Dotnet Tool uninstall -g LiveReloadServer
+Dotnet Tool uninstall -g dotnet-magicwindball
 ```
-
-As you can see it's pretty easy to create, publish, consume and manage Dotnet Tools...
 
 ## Example Components
 In this section I'd like to briefly describe a few of the Dotnet Tools I've created and discuss the how's and more pertinently the why's. I've been huge fan of these tools because it is so frictionless to get a tool published. If it wasn't for the easy of sharing via NuGet I probably wouldn't have bothered sharing these tools at all.
