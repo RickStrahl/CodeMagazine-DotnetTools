@@ -17,5 +17,5 @@ if ($len -gt 0) {
     nuget sign  ".\nupkg\$filename"   -CertificateSubject "West Wind Technologies" -timestamper " http://timestamp.comodoca.com"
 
     # Uncomment to publish
-    # nuget push  ".\nupkg\$filename" -source nuget.org
+    nuget push  ".\nupkg\$filename" -source nuget.org
 }
