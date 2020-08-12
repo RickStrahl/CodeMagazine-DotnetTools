@@ -8,7 +8,7 @@ This is a repository for session materials for this Dotnet Tools presentation.
 
 ### Presentation Materials
 
-* [White Paper](DotnetTools.md)
+* [White Paper](DotnetTools-CODE.md)
 * [Slides](DotnetCoreTools.pptx)
 
 
